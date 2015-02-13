@@ -1,0 +1,17 @@
+Package: FredR
+Title: FredR: R Interface to Federal Reserve Economic Data API
+Version: 0.1
+Date: 2015-02-13
+Authors@R: person("Janko", "Cizel", , "jcizel@gmail.com", role = c("aut", "cre"))
+Maintainer: Janko Cizel <jcizel@gmail.com>
+Description: This package provides an interface to the Federal Reserve Economic Data (FRED) API. FRED covers 240,000 US and international macroeconomic time series from 77 sources (including the World Bank,  OECD, and BIS). FredR has been designed in a way that gives a user a complete interface to all available functionalities of the API.  
+Depends: R (>= 3.1.1),
+	 XML,
+	 RCurl,
+	 data.table,
+	 pipeR,
+	 rlist,
+	 dplyr
+License: MIT
+LazyData: true
+Suggests: testthat

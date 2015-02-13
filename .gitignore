@@ -1,0 +1,10 @@
+.Rproj.user
+.Rhistory
+.RData
+.apikey 
+**.DS_Store
+**~
+**#
+**.csv
+scratch/
+inst/shiny/
