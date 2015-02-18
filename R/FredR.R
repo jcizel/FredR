@@ -13,9 +13,10 @@
 ##
 ##' @return List object of class FredR. The list object consists of functions
 ##' that perform the API calls (to be documented soon). For now, one can find
-##' the descriptions of particular calls and their parameters here: http://api.stlouisfed.org/docs/fred/?utm_source=research&utm_medium=website&utm_campaign=data-tools 
+##' the descriptions of particular calls and their parameters here: http://api.stlouisfed.org/docs/fred/?utm_source=research&utm_medium=website&utm_campaign=data-tools
 ##' @author Janko Cizel
 ##' @export
+##' @import XML RCurl data.table pipeR rlist dplyr
 FredR <- function(api.key = NULL){
 
     if (is.null(api.key))
@@ -227,7 +228,8 @@ FredR <- function(api.key = NULL){
 
     category.series <- function(
         category_id = NULL,
-        limit = 1000
+        limit = 1000,
+        offset = NULL
     ){
         if (is.null(category_id))
             stop("category_id is a required argument")
@@ -245,7 +247,9 @@ FredR <- function(api.key = NULL){
         if (!is.null(category_id))
             sprintf('%s&category_id=%s',url,category_id) -> url
         if (!is.null(limit))
-            sprintf('%s&limit=%s',url,limit) -> url                
+            sprintf('%s&limit=%s',url,limit) -> url
+        if (!is.null(offset))
+            sprintf('%s&offset=%s',url,offset) -> url                        
         
         getURL(
             url = url %>>%
@@ -469,7 +473,8 @@ FredR <- function(api.key = NULL){
 
     release.series <- function(
         release_id = NULL,
-        limit = 1000
+        limit = 1000,
+        offset = NULL
     ){
         if (is.null(release_id))
             stop('release_id is a required argument.')
@@ -488,6 +493,8 @@ FredR <- function(api.key = NULL){
             sprintf('%s&release_id=%s',url,release_id %>>% paste(collapse=";")) -> url        
         if (!is.null(limit))
             sprintf('%s&limit=%s',url,limit) -> url
+        if (!is.null(offset))
+            sprintf('%s&offset=%s',url,offset) -> url                                
         
         getURL(
             url = url %>>%
