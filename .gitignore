@@ -1,7 +1,7 @@
 .Rproj.user
 .Rhistory
-.RData
 .apikey 
+**.RData
 **.DS_Store
 **~
 **#

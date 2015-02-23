@@ -23,7 +23,6 @@ FredR <- function(api.key = NULL){
         stop("Provide an API key! You can obtain one here: http://api.stlouisfed.org/api_key.html")
 
     root = 'http://api.stlouisfed.org'
-    load(file = './inst/data/categories.RData')
 
     xml2dt <- function(xmlObj){
         xmlApply(xmlRoot(xmlObj), xmlAttrs) %>>%
@@ -109,27 +108,6 @@ FredR <- function(api.key = NULL){
         return(o)
     }
 
-    ## options(error = browser)
-    ## options(expressions=100000)
-    ## temp <- traverseCategories('0')
-    ## categories <- temp
-    ## save(categories, file = './inst/data/categories.RData')
-    ## test <- traverseCategories('32263')
-    ## test <- traverseCategories('32264')
-    ## r <-
-    ##     list(
-    ##         name = 'root',
-    ##         children = categories
-    ##     )
-
-    ## require(networkD3)
-    ## hierNetwork(List = categories,
-    ##             zoomable = T,
-    ##             collapsible = T,
-    ##             type = 'tree.cartesian')
-    ## getCategory('33077')
-    ## getChildrenList('33077')        
-    ## traverseCategories('33077')        
 
 
     ## ---------------------------------------------------------------------- ##
@@ -1177,7 +1155,6 @@ FredR <- function(api.key = NULL){
     
     ## Return
     o <- list(
-        allCategories = categories,
         getChildrenList = getChildrenList,
         cetegory = category,
         category.children = category.children,
