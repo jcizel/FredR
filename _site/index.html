@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FredR: R Interface to the Federal Reserve Economic Data API</title>
+	<meta name="keywords" content="FredR, API, Federal Reserve">
+	<meta name="description" content="This package provides an interface to the Federal Reserve Economic Data (FRED) API.;">
+  <link rel="stylesheet" href="combo.css">
+  <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+</head>
+<body>
+  <div id="main">
+
+    <nav><ul>
+      
+        
+        <li class="p-intro"><a href="#intro">home</a></li>
+      
+        
+        <li class="p-installation"><a href="#installation">Installation</a></li>
+      
+        
+        <li class="p-demo"><a href="#demo">Demo</a></li>
+      
+    </ul></nav>
+
+
+    
+      
+      <div id="intro" class="section p-intro">
+        
+        <div class="container center">
+          <h1 class="text-purple" id="fredr">FredR</h1>
+
+<h1 id="r-interface-to-the-federal-reserve-economic-data-apihttpapistlouisfedorgdocsfredutmsourceresearchutmmediumwebsiteutmcampaigndata-tools">R Interface to the <a href="http://api.stlouisfed.org/docs/fred/?utm_source=research&amp;utm_medium=website&amp;utm_campaign=data-tools">Federal Reserve Economic Data API</a></h1>
+
+<h2 class="text-blue" id="by-janko-cizel">By Janko Cizel</h2>
+
+<!-- <span class="fa-stack subtlecircle" style="font-size:100px; background:rgba(255,166,0,0.1)"> -->
+<!--   <i class="fa fa-circle fa-stack-2x text-white"></i> -->
+<!--   <i class="fa fa-bicycle fa-stack-1x text-orange"></i> -->
+<!-- </span> -->
+
+<p>This package provides an interface to the Federal Reserve Economic Data (FRED)
+API. FRED covers 240,000 US and international macroeconomic time series from 77
+sources (including the World Bank, OECD, and BIS).</p>
+
+<p>FredR has been designed in a way that gives a user a complete interface to all
+available functionalities of the API. Currently, the package is still poorly
+documented (improving on this will be the next step). However, the naming
+conventions used in the package map one-to-one to the official API calls, so one
+can for now use the official API documentation (available here) to see the
+meaning of particular functions and parameters.</p>
+
+<p><span id="forkongithub">
+  <a href="https://github.com/jcizel/FredR" class="bg-blue">
+    Fork me on GitHub
+  </a>
+</span></p>
+
+        </div>
+      </div>
+    
+      
+      <div id="installation" class="section p-installation">
+        
+        <div class="subtlecircle sectiondivider faicon">
+          <span class="fa-stack">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-check-square-o fa-stack-1x"></i>
+          </span>
+          <h5 class="icon-title">Installation</h5>
+        </div>
+        
+        <div class="container ">
+          <p>FredR is currently only available on Github, so you will need Hadley’s
+<strong>devtools</strong> in order to install it:</p>
+
+<p><code>
+devtools::install_github('jcizel/FredR')
+</code></p>
+
+
+        </div>
+      </div>
+    
+      
+      <div id="demo" class="section p-demo">
+        
+        <div class="subtlecircle sectiondivider faicon">
+          <span class="fa-stack">
+            <i class="fa fa-circle fa-stack-2x"></i>
+            <i class="fa fa-toggle-on fa-stack-1x"></i>
+          </span>
+          <h5 class="icon-title">Demo</h5>
+        </div>
+        
+        <div class="container ">
+          <h2 id="quick-demonstration">Quick Demonstration</h2>
+
+<p>In order to use the API, you first need to create an account here:
+http://api.stlouisfed.org/api_key.html. Once you have the account, copy-paste
+your  API key and supply it is a string argument to FredR function, like so:</p>
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><code class="language-r" data-lang="r">1</code></pre></div></td><td class="code"><div class="highlight"><pre>api.key <span class="o">=</span> <span class="s">&#39;...&#39;</span>  <span class="c1"># substitute ... with your API key</span>
+</pre></div>
+</td></tr></table>
+
+<p>Next,  you need to initialize FredR:</p>
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><code class="language-r" data-lang="r">1</code></pre></div></td><td class="code"><div class="highlight"><pre>fred <span class="o">&lt;-</span> FredR<span class="p">(</span>api.key<span class="p">)</span>
+</pre></div>
+</td></tr></table>
+
+<p>Call to FredR generates a list of functions each of which performs a specific
+type of query to the API. Each functions returns a data.table object containing
+the result of the query.</p>
+
+<p>Let’s view all the available functions in FredR:</p>
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><code class="language-r" data-lang="r">1</code></pre></div></td><td class="code"><div class="highlight"><pre>str<span class="p">(</span>fred<span class="p">,</span><span class="m">1</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+
+<p>Ok, let’s get to work. Say, that we want to find all series, whose name contains
+a string ‘GDP’:</p>
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><code class="language-r" data-lang="r">1</code></pre></div></td><td class="code"><div class="highlight"><pre>gdp.series <span class="o">&lt;-</span> fred<span class="o">$</span>series.search<span class="p">(</span><span class="s">&quot;GDP&quot;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+
+<p>‘gdp.series’ is now a ‘data.table’ containing all available GDP series and their
+properties.</p>
+
+<p>To see which one to use for further analysis, one can dig deeper:</p>
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><code class="language-r" data-lang="r"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</code></pre></div></td><td class="code"><div class="highlight"><pre><span class="kn">library</span><span class="p">(</span>pipeR<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
+
+gdp.series <span class="o">%&gt;&gt;%</span>
+select<span class="p">(</span>
+    id<span class="p">,</span>
+	title<span class="p">,</span>
+	observation_start<span class="p">,</span>
+	observation_end<span class="p">,</span>
+	popularity
+<span class="p">)</span> <span class="o">%&gt;&gt;%</span>
+arrange<span class="p">(</span>
+	desc<span class="p">(</span><span class="kp">as.numeric</span><span class="p">(</span>popularity<span class="p">))</span>
+<span class="p">)</span>
+</pre></div>
+</td></tr></table>
+
+<p>Let’s say that we decide to download the time series data for the series with
+<code>id = 'GDPC1'</code> (Real Gross Domestic Product in the U.S.):</p>
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><code class="language-r" data-lang="r">1</code></pre></div></td><td class="code"><div class="highlight"><pre>gdp <span class="o">&lt;-</span> fred<span class="o">$</span>series.observations<span class="p">(</span>series_id <span class="o">=</span> <span class="s">&#39;GDPC1&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+
+<p>Plot the result:</p>
+
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><code class="language-r" data-lang="r"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13</code></pre></div></td><td class="code"><div class="highlight"><pre>gdp <span class="o">%&gt;&gt;%</span>
+select<span class="p">(</span>
+    <span class="kp">date</span><span class="p">,</span>
+	    value
+<span class="p">)</span> <span class="o">%&gt;&gt;%</span>
+mutate<span class="p">(</span>
+    date <span class="o">=</span> <span class="kp">as.Date</span><span class="p">(</span><span class="kp">date</span><span class="p">),</span>
+	value <span class="o">=</span> <span class="kp">as.numeric</span><span class="p">(</span>value<span class="p">)</span>
+<span class="p">)</span> <span class="o">-&gt;</span>
+    dt
+
+<span class="kn">require</span><span class="p">(</span>ggplot2<span class="p">)</span>
+qplot<span class="p">(</span>data <span class="o">=</span> dt<span class="p">,</span> x <span class="o">=</span> <span class="kp">date</span><span class="p">,</span> y <span class="o">=</span> value<span class="p">,</span> geom <span class="o">=</span> <span class="s">&#39;line&#39;</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+
+
+        </div>
+      </div>
+    
+
+
+    <div id="footer" class="section text-white">
+      <div class="container">
+        
+        
+<p>Janko Cizel
+—
+Design by Tim O’Brien <a href="http://t413.com/">t413.com</a></p>
+
+
+      </div>
+    </div>
+  </div>
+
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-49607422-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="site.js"></script>
+</html>
