@@ -1,5 +1,5 @@
 #FredR: R Interface to the Federal Reserve Economic Data API
-[![Build Status](https://travis-ci.org/jcizel/FredR.svg)](https://travis-ci.org/jcizel/FredR)[![Coverage Status](https://coveralls.io/repos/jcizel/FredR/badge.svg)](https://coveralls.io/r/jcizel/FredR)
+[![Travis-CI Build Status](https://travis-ci.org/jcizel/FredR.png?branch=master)](https://travis-ci.org/jcizel/FredR)(https://travis-ci.org/jcizel/FredR)[![Coverage Status](https://coveralls.io/repos/jcizel/FredR/badge.svg)](https://coveralls.io/r/jcizel/FredR)
 
 
 This package provides an interface to the Federal Reserve Economic Data (FRED) API. FRED covers 240,000 US and international macroeconomic time series from 77 sources (including the World Bank,  OECD, and BIS).
