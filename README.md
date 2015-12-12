@@ -11,7 +11,7 @@ FredR has been designed in a way that gives a user a complete interface to all a
 FredR is currently only available on Github, so you will need Hadley's **devtools** in order to install it:
 
 ```r
-devtools::install_github("jcizel/FredR")
+devtools::install_github("Rharald/FredR")
 ```
 
 ## Quick Demonstration
