@@ -22,7 +22,7 @@ FredR <- function(api.key = NULL){
     if (is.null(api.key))
         stop("Provide an API key! You can obtain one here: http://api.stlouisfed.org/api_key.html")
 
-    root = 'http://api.stlouisfed.org'
+    root = 'https://api.stlouisfed.org'
 
     xml2dt <- function(xmlObj){
         xmlApply(xmlRoot(xmlObj), xmlAttrs) %>>%
