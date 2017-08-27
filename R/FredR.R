@@ -1156,7 +1156,7 @@ FredR <- function(api.key = NULL){
     ## Return
     o <- list(
         getChildrenList = getChildrenList,
-        cetegory = category,
+        category = category,
         category.children = category.children,
         category.related = category.related,
         category.series = category.series,
